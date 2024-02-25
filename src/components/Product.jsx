@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-export const Product = () => {
+const Product = () => {
   const [products, getProducts] = useState([]);
 
   useEffect(() => {
@@ -44,8 +44,8 @@ export const Product = () => {
 
   return (
     <>
-      <h1 className="text-center">Product Dashboard</h1>
       <div className="row">{cards}</div>
     </>
   );
 };
+export default Product;
