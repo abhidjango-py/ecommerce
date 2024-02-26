@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { useDispatch } from "react-redux";
+import { add } from "../store/cartSlice";
 
 const Product = () => {
+  const dispatch = useDispatch();
+
   const [products, getProducts] = useState([]);
 
   useEffect(() => {
@@ -12,11 +16,15 @@ const Product = () => {
       .then((result) => getProducts(result));
   }, []);
 
+  const addToCart = (product) => {
+    //dispatch an add action
+    dispatch(add(product));
+  };
   const cards = products.map((product) => (
-    <div className="col-md-3 col-sm-6 p-5">
+    <div className="col-md-3 container px-5">
       <Card style={{ width: "18rem" }} className="h-100">
         <Card.Img
-          className="p-5 align-self-center"
+          className="align-self-center"
           variant="top"
           src={product.image}
           style={{
@@ -34,7 +42,11 @@ const Product = () => {
           </Card.Text>
         </Card.Footer>
         <Card.Footer style={{ backgroundColor: "white", border: "0px" }}>
-          <Button variant="success" className="w-100 ">
+          <Button
+            variant="success"
+            className="w-100"
+            onClick={() => addToCart(product)}
+          >
             Add to cart
           </Button>
         </Card.Footer>
@@ -44,7 +56,8 @@ const Product = () => {
 
   return (
     <>
-      <div className="row">{cards}</div>
+      <div className="h1 p-2">Products</div>
+      <div className="d-flex flex-wrap">{cards}</div>
     </>
   );
 };
